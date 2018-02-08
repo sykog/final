@@ -11,11 +11,11 @@ error_reporting(E_ALL);
 $f3 = Base::instance();
 
 //Define a route using parameters
-$f3->route('GET /@name', function($f3, $params) {
+$f3->route('GET /@username', function($f3, $params) {
 
     $f3->set('username', $params['username']);
     $template = new Template();
-    echo $template->render('pages/profile.html');
+    echo $template->render('pages/profile.php');
 }
 );
 

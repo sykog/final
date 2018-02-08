@@ -1,0 +1,12 @@
+{
+  "name": "sourngre/final",
+  "authors":[
+    {
+      "name": "Sam Ourn & Antonio Suarez",
+      "email": "sourn@mail.greenriver.edu"
+    }
+  ],
+  "require":{
+    "bcosca/fatfree-core":"dev-master"
+  }
+}

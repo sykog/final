@@ -1,3 +1,8 @@
+<?php
+//Turn on error reporting
+ini_set('display-errors', 1);
+error_reporting(E_ALL);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,11 +15,10 @@
 </head>
 <body>
 
-<?php
-    include('../includes/navbar.html');
-?>
+<?php require('../includes/navbar.html'); ?>
 
 <div class="container">
+
     <!--User image-->
     <img src="../final/images/default-image.png" alt="user image">
     <div id="userInfo">

@@ -1,10 +1,17 @@
-.container {
-    margin-top: 30px;
-    margin-left: auto;
-    margin-right: auto;
-    width: 40%;
-}
+/* Main Styles */
 
 body {
     background-image: url("../images/icecream1.png");
+}
+
+div#main {
+    margin: 20px auto;
+    padding: 12px;
+    width: 70%;
+    background-image: url("../images/wood.png");
+    border: 5px solid #43826A;
+    border-radius: 5px 5px 25px 25px;
+    -moz-border-radius: 5px 5px 25px 25px;
+    -webkit-border-radius: 5px 5px 25px 25px;
+    box-shadow: 0px 0px 5px black;
 }

@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css?family=Shadows+Into+Light');
+
+/* Main Nav Styles */
+nav#mainNav {
+    margin: 20px auto;
+    width: 70%;
+    background-image: url("../images/wood.png");
+    border: 5px solid #43826A;
+    border-radius: 25px 25px 5px 5px;
+    -moz-border-radius: 25px 25px 5px 5px;
+    -webkit-border-radius: 25px 25px 5px 5px;
+    box-shadow: 0px 0px 5px black;
+}
+
+/* Logo Styles */
+
+nav#mainNav div#banner {
+    margin: 25px 0px 10px 0px;
+}
+
+nav#mainNav img#logo {
+    display: block;
+    margin: 0px auto;
+    width: 60%;
+}
+
+/* Link Styles */
+
+ul#nav {
+    text-align: center;
+}
+
+ul#nav li {
+    display: inline-block;
+    padding: 2px 12px;
+    font-family: "Shadows Into Light", "Arial", sans-serif;
+    color: black;
+    font-size: 2em;
+    letter-spacing: 3px;
+}
+
+ul#nav li a {
+    color: #43826A;
+    text-decoration: none;
+}
+
+ul#nav li a:hover {
+    text-shadow: 0px 0px 2px black;
+}

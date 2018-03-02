@@ -1,7 +1,17 @@
+@import url('https://fonts.googleapis.com/css?family=Shadows+Into+Light');
 /* Main Styles */
 
 body {
     background-image: url("../images/icecream1.png");
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-shadow: 0px 0px 2px black;
+    text-decoration: none;
 }
 
 div#main {
@@ -16,61 +26,41 @@ div#main {
     box-shadow: 0px 0px 5px black;
 }
 
-/* Section Styles */
+div#main h3 a {
+    font-family: "Shadows Into Light", "Arial", serif;
+    letter-spacing: 3px;
+    color: #43826A;
+}
 
-section#header div {
-    padding: 4px;
-    background-color: #008CFF;
+/* Card Styles */
+div.card {
+    border: 2px solid #43826A;
+    border-radius: 5px 5px 5px 5px;
+    -moz-border-radius: 5px 5px 5px 5px;
+    -webkit-border-radius: 5px 5px 5px 5px;
+    box-shadow: 0px 0px 3px #43826A;
+    background-color: #FFFFFF00
+}
+
+/* Card Header Styles */
+
+div.card-header {
     border: none;
-    text-align: center;
+    background-color: #43826A;
 }
 
-section#header div:nth-of-type(2) {
-    background-color: #70BEFF;
+div.card-header h2 {
+    font-family: "Shadows Into Light", "Arial", serif;
+    letter-spacing: 3px;
+    font-weight: bold;
+    color: #FFFFFF;
 }
 
-div.container section img {
-    max-width: 80px;
-    float: left;
-    margin-right: 15px;
+/* Card Footer Styles */
+
+div.card-footer {
 }
 
-div.container section div {
-    border-bottom: 1px solid #0000001c;
-}
-
-div.container section div:nth-of-type(2) {
-    background-color: rgba(255, 255, 255, 0.3);
-}
-
-div.container section div h5 {
-    padding-top: 10px;
-}
-
-div.container section div.col-1 p {
-    padding-top: 10px;
-    text-align: center;
-}
-
-div.container section div.col-10 p {
-    font-size: 0.8em;
-}
-
-/* Statistics Styles */
-
-div#stats {
-    padding: 2%;
-}
-
-figure {
-    float: left;
-}
-
-figure img {
-    max-width: 80px;
-    margin: 0px 10px;
-}
-
-div#stats p {
-    text-indent: 20px;
+div.card-footer p.foot {
+    text-align: right;
 }

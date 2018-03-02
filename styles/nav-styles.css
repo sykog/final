@@ -43,7 +43,3 @@ ul#nav li a {
     color: #43826A;
     text-decoration: none;
 }
-
-ul#nav li a:hover {
-    text-shadow: 0px 0px 2px black;
-}

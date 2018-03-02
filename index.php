@@ -48,6 +48,12 @@ $f3->route('GET /login', function($f3, $params) {
     $template = new Template();
     echo $template->render('pages/navbar.html');
     echo $template->render('pages/signup.html');
+
+    $username = "sykog";
+    $password = "chocobo586";
+    $user = new Admin($username, $password);
+    $database = new Database();
+    $database->addMember($user, $password, 1, $user->commentCount());
 });
 
 //Run Fat-Free

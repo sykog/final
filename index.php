@@ -25,13 +25,29 @@ $f3->route('GET /', function($f3, $params) {
     echo $template->render('pages/home.html');
 });
 
-//Define a route using parameters to get to a user's profile
-$f3->route('GET /profile/@user', function($f3, $params) {
+//Define a route to get to a user's profile
+$f3->route('GET /profile-@user', function($f3, $params) {
 
     $f3->set('username', $params['username']);
     $template = new Template();
     echo $template->render('pages/navbar.html');
-    echo $template->render('pages/profile.php');
+    echo $template->render('pages/profile.html');
+});
+
+//Define a route to the main blog
+$f3->route('GET /blog', function($f3, $params) {
+
+    $template = new Template();
+    echo $template->render('pages/navbar.html');
+    echo $template->render('pages/posts.html');
+});
+
+//Define a route to log in
+$f3->route('GET /login', function($f3, $params) {
+
+    $template = new Template();
+    echo $template->render('pages/navbar.html');
+    echo $template->render('pages/signup.html');
 });
 
 //Run Fat-Free

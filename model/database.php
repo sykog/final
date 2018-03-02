@@ -7,7 +7,7 @@
     numposts INT
 ) */
 
-require_once("/home/sourngre/config.php");
+require_once $_SERVER['DOCUMENT_ROOT']."/../config.php";
 
 /**
  * The Database class pulls the users table from the database

@@ -2,6 +2,16 @@
 
 //Require the autoload file
 require_once ('vendor/autoload.php');
+
+try {
+    //Instantiate a PDO object
+    $dbh = new PDO(DB_DSN,DB_USERNAME, DB_PASSWORD);
+
+    echo "Connected to database!";
+}
+catch (PDOException $e) {
+    echo $e->getMessage();
+}
 //Start the session
 session_start();
 

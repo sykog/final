@@ -15,16 +15,6 @@ $f3 = Base::instance();
 // set debug level
 $f3->set('DEBUG', 3);
 
-//Connect to database
-require ('/home/sourngre/config.php');
-try {
-    //Instantiate a PDO object
-    $dbh = new PDO(DB_DSN,DB_USERNAME, DB_PASSWORD);
-}
-catch (PDOException $e) {
-    echo $e->getMessage();
-}
-
 $_SESSION['user'] = "sykog";
 $f3->set('user', $_SESSION['user']);
 
@@ -54,18 +44,36 @@ $f3->route('GET /blog', function($f3, $params) {
 });
 
 //Define a route to log in
-$f3->route('GET /login', function($f3, $params) {
+$f3->route('GET|POST /login', function($f3, $params) {
+
+    //Create the database
+    $database = new Database();
 
     $template = new Template();
     echo $template->render('pages/navbar.html');
     echo $template->render('pages/signup.html');
 
-    /*$username = "sykog";
-    $password = "chocobo586";
-    $user = new Admin($username, $password);
-    $database = new Database();
-    $database->addMember($username, $user->getPassword(), 1, $user->commentCount());
-    */
+    if (isset($_POST['register'])) {
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        $confirm = $_POST['confirm'];
+        $success = true;
+
+        $user = new Member($username, $password);
+
+        //$database->addMember($user->getUsername(), $user->getPassword(), 0, 0);
+        if ($database->memberExists($user->getUsername()) ==1) $success = false;
+        if ($password == $confirm && $success) {
+            $database->addMember($user->getUsername(), $user->getPassword(), 0, 0);
+        }
+        if($password != $confirm){
+            echo"Passwords do not match.";
+        }
+        if(!$success) {
+            echo "Username already exists.";
+        }
+
+    }
 });
 
 //Run Fat-Free

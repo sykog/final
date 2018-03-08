@@ -85,4 +85,23 @@ class Database
             echo "<td>" . $row['numposts'] . "</td>";
         }
     }
-}
+
+    function memberExists($username)
+    {
+        $dbh = $this->dbh;
+        // Define the query
+        $sql = "SELECT * FROM users WHERE username= :username";
+
+        // Prepare the statement
+        $statement = $dbh->prepare($sql);
+
+        $statement->bindParam(":username", $username, PDO::PARAM_STR);
+
+        // Execute the statement
+        $statement->execute();
+
+        // Process the result
+        $row = $statement->fetch(PDO::FETCH_ASSOC);
+        return $row['username'] == $username;
+    }//end searchMember()
+}//end database class

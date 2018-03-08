@@ -3,15 +3,6 @@
 //Require the autoload file
 require_once ('vendor/autoload.php');
 
-try {
-    //Instantiate a PDO object
-    $dbh = new PDO(DB_DSN,DB_USERNAME, DB_PASSWORD);
-
-    echo "Connected to database!";
-}
-catch (PDOException $e) {
-    echo $e->getMessage();
-}
 //Start the session
 session_start();
 
@@ -23,6 +14,16 @@ error_reporting(E_ALL);
 $f3 = Base::instance();
 // set debug level
 $f3->set('DEBUG', 3);
+
+//Connect to database
+require ('/home/sourngre/config.php');
+try {
+    //Instantiate a PDO object
+    $dbh = new PDO(DB_DSN,DB_USERNAME, DB_PASSWORD);
+}
+catch (PDOException $e) {
+    echo $e->getMessage();
+}
 
 $_SESSION['user'] = "sykog";
 $f3->set('user', $_SESSION['user']);
@@ -59,11 +60,12 @@ $f3->route('GET /login', function($f3, $params) {
     echo $template->render('pages/navbar.html');
     echo $template->render('pages/signup.html');
 
-    $username = "sykog";
+    /*$username = "sykog";
     $password = "chocobo586";
     $user = new Admin($username, $password);
     $database = new Database();
-    $database->addMember($user, $password, 1, $user->commentCount());
+    $database->addMember($username, $user->getPassword(), 1, $user->commentCount());
+    */
 });
 
 //Run Fat-Free

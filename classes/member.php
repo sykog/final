@@ -23,7 +23,7 @@
         function __construct($username, $password)
         {
             $this->username = $username;
-            $this->password = $password;
+            $this->password = sha1($password);
             $this->comments = 0;
         }
 

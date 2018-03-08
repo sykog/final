@@ -38,7 +38,7 @@ class Database
     /**
      * Adds member to the database
      * @param userid id of user
-     * @param username usenrname
+     * @param username username
      * @param password VARCHAR(50),
      * @param premium 1 if true, 0 if false
      * @param numposts number of posts made

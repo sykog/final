@@ -42,7 +42,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" id="confirmdiv">
                         <label for="confirm" class="cols-sm-2 control-label">Confirm Password</label>
                         <div class="cols-sm-10">
                             <div class="input-group">
@@ -52,18 +52,46 @@
                         </div>
                     </div>
 
-                    <div class="form-group ">
-                        <button type="button" class="btn btn-primary btn-lg btn-block login-button">Register</button>
+                    <div class="form-group" id="signup">
+                        <button type="submit" id="login" name="login" class="btn btn-primary btn-lg btn-block login-button">Login</button>
                     </div>
+
+                    <div class="form-group" id="switch">
+                        <button type="button" name="switch" class="btn btn-primary btn-lg btn-block login-button">Not a member? Register</button>
+                    </div>
+
                     <br>
-                    <!--<div class="form-group ">
-                        <button type="button" class="btn btn-light btn-lg btn-block login-button">Already registered? Log In</button>
-                    </div>-->
+
                 </form>
             </div>
         </div>
     </div>
 
     <script type="text/javascript" src="assets/js/bootstrap.js"></script>
+    <script src="http://code.jquery.com/jquery.js"></script>
+
+    <script>
+
+        var register = false;
+        $("#confirmdiv").hide();
+
+        //search button is clicked
+        $("#switch").click(function() {
+
+            if(register == false) {
+                $("#confirmdiv").show();
+                $("#signup").html("<button type=\"submit\" id=\"register\" name=\"register\" class=\"btn btn-primary btn-lg btn-block login-button\">Register</button>");
+                $("#switch").html("<button type=\"button\" name=\"switch\" class=\"btn btn-primary btn-lg btn-block login-button\">Already a member? Login</button>");
+                register = true;
+            }
+            else {
+                $("#confirmdiv").hide();
+                $("#signup").html("<button type=\"submit\" id=\"login\" name=\"login\" class=\"btn btn-primary btn-lg btn-block login-button\">Login</button>");
+                $("#switch").html("<button type=\"button\" name=\"switch\" class=\"btn btn-primary btn-lg btn-block login-button\">Not a member? Register</button>");
+                register = false;
+            }
+        });
+
+    </script>
 </body>
 </html>

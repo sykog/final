@@ -12,6 +12,7 @@
         protected $username;
         protected $password;
         protected $comments;
+        protected $premium;
 
         /**
          * Member constructor.
@@ -20,11 +21,12 @@
          * @param $posts starts number of posts made
          * @return void
          */
-        function __construct($username, $password)
+        function __construct($username, $password, $premium, $comments)
         {
             $this->username = $username;
-            $this->password = sha1($password);
-            $this->comments = 0;
+            $this->password = $password;
+            $this->comments = $comments;
+            $this->premium = $premium;
         }
 
         /**
@@ -62,8 +64,11 @@
          */
         function setPassword($password)
         {
-            $password = sha1($password);
             $this->password = $password;
+        }
+
+        function getPremium() {
+            return $this->premium;
         }
 
         /**

@@ -53,26 +53,44 @@ $f3->route('GET|POST /login', function($f3, $params) {
     echo $template->render('pages/navbar.html');
     echo $template->render('pages/signup.html');
 
+    //if register button is clicked
     if (isset($_POST['register'])) {
         $username = $_POST['username'];
-        $password = $_POST['password'];
-        $confirm = $_POST['confirm'];
+        $password = sha1($_POST['password']);
+        $confirm = sha1($_POST['confirm']);
         $success = true;
 
-        $user = new Member($username, $password);
+        $user = new Member($username, $password, 0, 0);
 
         //$database->addMember($user->getUsername(), $user->getPassword(), 0, 0);
         if ($database->memberExists($user->getUsername()) ==1) $success = false;
         if ($password == $confirm && $success) {
-            $database->addMember($user->getUsername(), $user->getPassword(), 0, 0);
+            $database->addMember($username, $password, 0, 0);
         }
         if($password != $confirm){
             echo"Passwords do not match.";
+            echo $confirm;
+            echo $password;
         }
         if(!$success) {
             echo "Username already exists.";
         }
+    }
 
+    //if login button is clicked
+    if (isset($_POST['login'])) {
+        $username = $_POST['username'];
+        $password = sha1($_POST['password']);
+        $success = true;
+
+        if($database->getMember($username) == $username && ($database->getPassword($username) == $password)) $success = true;
+        else $success = false;
+
+        if(!$success) {
+            echo "Incorrect username or password.";
+            echo "$password <br>";
+            echo $database->getPassword($username);
+        }
     }
 });
 

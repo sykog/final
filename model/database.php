@@ -103,5 +103,77 @@ class Database
         // Process the result
         $row = $statement->fetch(PDO::FETCH_ASSOC);
         return $row['username'] == $username;
-    }//end searchMember()
+    }//end memberExists()
+
+    function getMember($username) {
+        $dbh = $this->dbh;
+        // Define the query
+        $sql = "SELECT * FROM users WHERE username= :username";
+
+        // Prepare the statement
+        $statement = $dbh->prepare($sql);
+
+        $statement->bindParam(":username", $username, PDO::PARAM_STR);
+
+        // Execute the statement
+        $statement->execute();
+
+        // Process the result
+        $row = $statement->fetch(PDO::FETCH_ASSOC);
+        return $row['username'];
+    }
+
+    function getPassword($username) {
+        $dbh = $this->dbh;
+        // Define the query
+        $sql = "SELECT * FROM users WHERE username= :username";
+
+        // Prepare the statement
+        $statement = $dbh->prepare($sql);
+
+        $statement->bindParam(":username", $username, PDO::PARAM_STR);
+
+        // Execute the statement
+        $statement->execute();
+
+        // Process the result
+        $row = $statement->fetch(PDO::FETCH_ASSOC);
+        return $row['password'];
+    }
+
+    function getComments($username) {
+        $dbh = $this->dbh;
+        // Define the query
+        $sql = "SELECT * FROM users WHERE username= :username";
+
+        // Prepare the statement
+        $statement = $dbh->prepare($sql);
+
+        $statement->bindParam(":username", $username, PDO::PARAM_STR);
+
+        // Execute the statement
+        $statement->execute();
+
+        // Process the result
+        $row = $statement->fetch(PDO::FETCH_ASSOC);
+        return $row['numPosts'];
+    }
+
+    function getPremium($username) {
+        $dbh = $this->dbh;
+        // Define the query
+        $sql = "SELECT * FROM users WHERE username= :username";
+
+        // Prepare the statement
+        $statement = $dbh->prepare($sql);
+
+        $statement->bindParam(":username", $username, PDO::PARAM_STR);
+
+        // Execute the statement
+        $statement->execute();
+
+        // Process the result
+        $row = $statement->fetch(PDO::FETCH_ASSOC);
+        return $row['premium'];
+    }
 }//end database class

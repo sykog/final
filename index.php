@@ -15,8 +15,12 @@ $f3 = Base::instance();
 // set debug level
 $f3->set('DEBUG', 3);
 
-$_SESSION['user'] = "sykog";
 $f3->set('user', $_SESSION['user']);
+echo $_SESSION['user'];
+if(isset($_SESSION['user'])){
+    $f3->set("loggedIn", "true");
+    echo " hi";
+}
 
 //Define a route to go to home page
 $f3->route('GET /', function($f3, $params) {
@@ -66,6 +70,9 @@ $f3->route('GET|POST /login', function($f3, $params) {
         if ($database->memberExists($user->getUsername()) ==1) $success = false;
         if ($password == $confirm && $success) {
             $database->addMember($username, $password, 0, 0);
+            $_SESSION['user'] = $username;
+            $f3->set('user', $_SESSION['user']);
+            echo $username;
         }
         if($password != $confirm){
             echo"Passwords do not match.";
@@ -83,13 +90,20 @@ $f3->route('GET|POST /login', function($f3, $params) {
         $password = sha1($_POST['password']);
         $success = true;
 
-        if($database->getMember($username) == $username && ($database->getPassword($username) == $password)) $success = true;
+        if($database->getMember($username) == $username && ($database->getPassword($username) == $password)) {
+            $success = true;
+        }
         else $success = false;
 
-        if(!$success) {
+        if($success) {
+            $user = new Member($database->getMember($username), $database->getPassword($username), $database->getPremium($username), $database->getComments($username));
+            $_SESSION['user'] = $username;
+            $_SESSION['member'] = $user;
+            $f3->set('user', $_SESSION['user']);
+        }
+
+        else {
             echo "Incorrect username or password.";
-            echo "$password <br>";
-            echo $database->getPassword($username);
         }
     }
 });

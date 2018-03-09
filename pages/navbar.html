@@ -10,10 +10,18 @@
             <a href="/328/final/blog">Posts<span class="sr-only"></span></a>
         </li>
         <li>
-            <a href="/328/final/profile-{{ @user }}">Profile<span class="sr-only"></span></a>
+            <a href="/328/final/profile-{{ @user }}">Users<span class="sr-only"></span></a>
         </li>
-        <li>
-            <a href="/328/final/login">Log In<span class="sr-only"></span></a>
-        </li>
+        <check if="{{@loggedIn == 'true'}}">
+            <true>
+            <li>
+                <a href="/328/final/logout">Log Out<span class="sr-only"></span></a>
+            </li></true>
+            <false>
+                <li>
+                    <a href="/328/final/login">Log In<span class="sr-only"></span></a>
+                </li>
+            </false>
+        </check>
     </ul>
 </nav>

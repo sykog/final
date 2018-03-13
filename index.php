@@ -16,10 +16,8 @@ $f3 = Base::instance();
 $f3->set('DEBUG', 3);
 
 $f3->set('user', $_SESSION['user']);
-echo $_SESSION['user'];
 if(isset($_SESSION['user'])){
     $f3->set("loggedIn", "true");
-    echo " hi";
 }
 
 //Define a route to go to home page
@@ -28,6 +26,10 @@ $f3->route('GET /', function($f3, $params) {
     $template = new Template();
     echo $template->render('pages/navbar.html');
     echo $template->render('pages/home.html');
+
+    if(isset($_SESSION['user'])){
+        echo $_SESSION['user'];
+    }
 });
 
 //Define a route to get to a user's profile
@@ -66,7 +68,6 @@ $f3->route('GET|POST /login', function($f3, $params) {
 
         $user = new Member($username, $password, 0, 0);
 
-        //$database->addMember($user->getUsername(), $user->getPassword(), 0, 0);
         if ($database->memberExists($user->getUsername()) ==1) $success = false;
         if ($password == $confirm && $success) {
             $database->addMember($username, $password, 0, 0);
@@ -100,12 +101,26 @@ $f3->route('GET|POST /login', function($f3, $params) {
             $_SESSION['user'] = $username;
             $_SESSION['member'] = $user;
             $f3->set('user', $_SESSION['user']);
+
+            $f3->reroute("/");
         }
 
         else {
             echo "Incorrect username or password.";
         }
     }
+});
+
+//Define a route to log out
+$f3->route('GET /logout', function($f3, $params) {
+
+    unset($_SESSION["user"]);
+
+    $template = new Template();
+    echo $template->render('pages/navbar.html');
+    echo $template->render('pages/home.html');
+
+    $f3->reroute("/");
 });
 
 //Run Fat-Free

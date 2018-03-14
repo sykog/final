@@ -37,7 +37,6 @@ class Database
 
     /**
      * Adds member to the database
-     * @param userid id of user
      * @param username username
      * @param password VARCHAR(50),
      * @param premium 1 if true, 0 if false
@@ -61,6 +60,50 @@ class Database
         // execute
         $statement->execute();
         $id = $dbh->lastInsertId();
+    }
+
+    /**
+     * Adds blog post to the databas
+     * @param userid id of user
+     * @param content post being made
+     * @return void
+     */
+    function addPost($userid, $content)
+    {
+        $dbh = $this->dbh;
+        // define the query
+        $sql = "INSERT INTO posts(userid, content)
+          VALUES (:userid, :content)";
+
+        // prepare the statement
+        $statement = $dbh->prepare($sql);
+        $statement->bindParam(':userid', $userid, PDO::PARAM_INT);
+        $statement->bindParam(':content', $content, PDO::PARAM_STR);
+
+        // execute
+        $statement->execute();
+        $id = $dbh->lastInsertId();
+    }
+
+    /**
+     * Adds blog post to the database
+     * @param username username
+     * @param numPosts number of posts made
+     * @return void
+     */
+    function updatePostCount($username, $numPosts)
+    {
+        $dbh = $this->dbh;
+        // define the query
+        $sql = "UPDATE users SET numPosts = :numPosts WHERE username = :username";
+
+        // prepare the statement
+        $statement = $dbh->prepare($sql);
+        $statement->bindParam(':numPosts', $numPosts, PDO::PARAM_INT);
+        $statement->bindParam(':username', $username, PDO::PARAM_STR);
+
+        // execute
+        $statement->execute();
     }
 
     function selectMember()
@@ -123,6 +166,24 @@ class Database
         return $row['username'];
     }
 
+    function getMemberId($username) {
+        $dbh = $this->dbh;
+        // Define the query
+        $sql = "SELECT * FROM users WHERE username= :username";
+
+        // Prepare the statement
+        $statement = $dbh->prepare($sql);
+
+        $statement->bindParam(":username", $username, PDO::PARAM_STR);
+
+        // Execute the statement
+        $statement->execute();
+
+        // Process the result
+        $row = $statement->fetch(PDO::FETCH_ASSOC);
+        return $row['userid'];
+    }
+
     function getPassword($username) {
         $dbh = $this->dbh;
         // Define the query
@@ -176,4 +237,4 @@ class Database
         $row = $statement->fetch(PDO::FETCH_ASSOC);
         return $row['premium'];
     }
-}//end database class
+}

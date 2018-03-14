@@ -81,12 +81,37 @@
         }
 
         /**
-         * comment to to a post
-         * @param $comment
+         * create a blog post, send to database
+         * only premium members can make posts
+         * @param $comment the post being made
+         * @return void
+         */
+        function blogPost($comment)
+        {
+            // exit if not a premium member
+            if ($this->premium != 1) {
+                return;
+            }
+
+            // access the database
+            $database = new Database();
+            $userid = $database->getMemberId($this->username);
+            // add post to the database
+            $database->addPost($userid, $comment);
+            // update post count
+            $this->comments = $this->comments + 1;
+            $database->updatePostCount($this->username, $this->comments);
+        }
+
+        /**
+         * comment to to a post, send to database
+         * @param $comment the comment being made
          * @return void
          */
         function comment($comment)
         {
+
+
             $this->comments = $this->comments + 1;
         }
     }

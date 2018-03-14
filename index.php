@@ -42,17 +42,25 @@ $f3->route('GET /profile-@user', function($f3, $params) {
 });
 
 //Define a route to the main blog
-$f3->route('GET /blog', function($f3, $params) {
+$f3->route('GET|POST /blog', function($f3, $params) {
+
+    // access the database
+    $database = new Database();
 
     $template = new Template();
     echo $template->render('pages/navbar.html');
     echo $template->render('pages/posts.html');
+
+    /*$username = "sykog";
+    $comment = "My personal favorite is peanut butter ice cream. The peanut butter ice cream at Coldstone is delicious, but I never see it at Kent Station anymore. I sometimes see it at other locations, and get it almost ever time. As far as toppings go, I really like Reeses or graham crackers. Actually, why not both?";
+    $user = new Member($username, $database->getPassword($username), $database->getPremium($username), $database->getComments($username));
+    $user->blogPost($comment); */
 });
 
 //Define a route to log in
 $f3->route('GET|POST /login', function($f3, $params) {
 
-    //Create the database
+    // access the database
     $database = new Database();
 
     $template = new Template();

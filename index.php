@@ -46,14 +46,26 @@ $f3->route('GET|POST /blog', function($f3, $params) {
 
     // access the database
     $database = new Database();
+    $member = $database->getMember($_SESSION['user']);
+    $user = new Member($member[0]['username'], $member[0]['password'], $member[0]['premium'], $member[0]['numPosts']);
+    if ($user->getPremium() == 1) {
+        $f3->set("premium", "true");
+        if(isset($_POST['submit'])) {
+            $comment = $_POST['blogPost'];
+            $user->blogPost($comment);
+        }
+    }
+
 
     $template = new Template();
     echo $template->render('pages/navbar.html');
     echo $template->render('pages/posts.html');
 
+
     /*$username = "sykog";
+    $member = $database->getMember($username);
     $comment = "My personal favorite is peanut butter ice cream. The peanut butter ice cream at Coldstone is delicious, but I never see it at Kent Station anymore. I sometimes see it at other locations, and get it almost ever time. As far as toppings go, I really like Reeses or graham crackers. Actually, why not both?";
-    $user = new Member($username, $database->getPassword($username), $database->getPremium($username), $database->getComments($username));
+    $user = new Member($member[0]['username'], $member[0]['password'], $member[0]['premium'], $member[0]['numPosts']);
     $user->blogPost($comment); */
 });
 
@@ -67,12 +79,15 @@ $f3->route('GET|POST /login', function($f3, $params) {
     echo $template->render('pages/navbar.html');
     echo $template->render('pages/signup.html');
 
+
+
     //if register button is clicked
     if (isset($_POST['register'])) {
         $username = $_POST['username'];
         $password = sha1($_POST['password']);
         $confirm = sha1($_POST['confirm']);
         $success = true;
+
 
         $user = new Member($username, $password, 0, 0);
 
@@ -81,12 +96,13 @@ $f3->route('GET|POST /login', function($f3, $params) {
             $database->addMember($username, $password, 0, 0);
             $_SESSION['user'] = $username;
             $f3->set('user', $_SESSION['user']);
-            echo $username;
+            $f3->reroute("/");
         }
         if($password != $confirm){
             echo"Passwords do not match.";
             echo $confirm;
             echo $password;
+
         }
         if(!$success) {
             echo "Username already exists.";
@@ -98,14 +114,16 @@ $f3->route('GET|POST /login', function($f3, $params) {
         $username = $_POST['username'];
         $password = sha1($_POST['password']);
         $success = true;
+        $member = $database->getMember($username);
 
-        if($database->getMember($username) == $username && ($database->getPassword($username) == $password)) {
+        // have to use [0] since the array is in an array
+        if($member[0]['username'] == $username && ($member[0]['password'] == $password)) {
             $success = true;
         }
         else $success = false;
 
         if($success) {
-            $user = new Member($database->getMember($username), $database->getPassword($username), $database->getPremium($username), $database->getComments($username));
+            $user = new Member($username, $password, $member[0]['premium'], $member[0]['numPosts']);
             $_SESSION['user'] = $username;
             $_SESSION['member'] = $user;
             $f3->set('user', $_SESSION['user']);

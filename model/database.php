@@ -162,79 +162,25 @@ class Database
         $statement->execute();
 
         // Process the result
-        $row = $statement->fetch(PDO::FETCH_ASSOC);
-        return $row['username'];
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
     }
 
-    function getMemberId($username) {
+    function getPosts($postid) {
         $dbh = $this->dbh;
         // Define the query
-        $sql = "SELECT * FROM users WHERE username= :username";
+        $sql = "SELECT * FROM posts WHERE postid= :postid";
 
         // Prepare the statement
         $statement = $dbh->prepare($sql);
 
-        $statement->bindParam(":username", $username, PDO::PARAM_STR);
+        $statement->bindParam(":postid", $postid, PDO::PARAM_STR);
 
         // Execute the statement
         $statement->execute();
 
         // Process the result
         $row = $statement->fetch(PDO::FETCH_ASSOC);
-        return $row['userid'];
-    }
-
-    function getPassword($username) {
-        $dbh = $this->dbh;
-        // Define the query
-        $sql = "SELECT * FROM users WHERE username= :username";
-
-        // Prepare the statement
-        $statement = $dbh->prepare($sql);
-
-        $statement->bindParam(":username", $username, PDO::PARAM_STR);
-
-        // Execute the statement
-        $statement->execute();
-
-        // Process the result
-        $row = $statement->fetch(PDO::FETCH_ASSOC);
-        return $row['password'];
-    }
-
-    function getComments($username) {
-        $dbh = $this->dbh;
-        // Define the query
-        $sql = "SELECT * FROM users WHERE username= :username";
-
-        // Prepare the statement
-        $statement = $dbh->prepare($sql);
-
-        $statement->bindParam(":username", $username, PDO::PARAM_STR);
-
-        // Execute the statement
-        $statement->execute();
-
-        // Process the result
-        $row = $statement->fetch(PDO::FETCH_ASSOC);
-        return $row['numPosts'];
-    }
-
-    function getPremium($username) {
-        $dbh = $this->dbh;
-        // Define the query
-        $sql = "SELECT * FROM users WHERE username= :username";
-
-        // Prepare the statement
-        $statement = $dbh->prepare($sql);
-
-        $statement->bindParam(":username", $username, PDO::PARAM_STR);
-
-        // Execute the statement
-        $statement->execute();
-
-        // Process the result
-        $row = $statement->fetch(PDO::FETCH_ASSOC);
-        return $row['premium'];
+        return $row;
     }
 }

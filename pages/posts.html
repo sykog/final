@@ -17,26 +17,28 @@
 
         <div class="container">
 
-			<div class="card mb-4">
-				<div class="card-header">
-					<h2 class="card-title">What is your favorite ice cream flavor?</h2>
-				</div>
-				<div class="card-body">
-					<p class="card-text">My personal favorite is peanut butter ice cream. The peanut butter ice cream
-					at Coldstone is delicious, but I never see it at Kent Station anymore. I sometimes see it at
-					other locations, and get it almost ever time. As far as toppings go, I really like Reeses
-					or graham crackers. Actually, why not both?</p>
-				</div>
-				<div class="card-footer">
-					<p class="foot">Posted on March 1, 2017 by <a href="profile/sykog">sykog</a></p>
-				</div>
-			</div>
+            <repeat group="{{@allPosts}}" value="{{@posts}}">
+
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h2 class="card-title">{{ @posts['title'] }}</h2>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">{{ @posts['content'] }}</p>
+                    </div>
+                    <div class="card-footer">
+                        <a class="foot"><a href="#">{{ @posts['commentCount']}} Comments</a>  Posted on {{ @posts['datetime']}} by <a href="profile/{{ @posts['userid'] }}">{{ @posts['username'] }}</a></p>
+                    </div>
+                </div>
+            </repeat>
+
 
             <check if="{{@premium == 'true'}}">
                 <button type="button" id="new">New Post</button>
             </check>
 
             <form id="newForm" method="post" action=""></form>
+
 
 		</div><!-- Categories container -->
 
@@ -46,7 +48,7 @@
 	<script>
         $("#new").click(function() {
             $("#newForm").html("<textarea type='text' id='blogPost' name='blogPost' rows=10></textarea><br>" +
-                "<button type='submit'>Create Post</button>");
+                "<button type='submit' name='submit'>Create Post</button>");
 
         });
 

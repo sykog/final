@@ -95,9 +95,9 @@
 
             // access the database
             $database = new Database();
-            $userid = $database->getMember($this->username)[0]['userid'];
+            $username = $database->getMember($this->username)[0]['username'];
             // add post to the database
-            $database->addPost($userid, $comment);
+            $database->addPost($username, $comment);
             // update post count
             $this->comments = $this->comments + 1;
             $database->updatePostCount($this->username, $this->comments);

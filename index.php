@@ -46,6 +46,7 @@ $f3->route('GET|POST /blog', function($f3, $params) {
 
     // access the database
     $database = new Database();
+    $posts = $database->getPosts();
     $member = $database->getMember($_SESSION['user']);
     $user = new Member($member[0]['username'], $member[0]['password'], $member[0]['premium'], $member[0]['numPosts']);
     if ($user->getPremium() == 1) {
@@ -56,6 +57,7 @@ $f3->route('GET|POST /blog', function($f3, $params) {
         }
     }
 
+    $f3->set("allPosts", $posts);
 
     $template = new Template();
     echo $template->render('pages/navbar.html');

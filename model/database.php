@@ -68,16 +68,16 @@ class Database
      * @param content post being made
      * @return void
      */
-    function addPost($userid, $content)
+    function addPost($username, $content)
     {
         $dbh = $this->dbh;
         // define the query
-        $sql = "INSERT INTO posts(userid, content)
-          VALUES (:userid, :content)";
+        $sql = "INSERT INTO posts(username, content)
+          VALUES (:username, :content)";
 
         // prepare the statement
         $statement = $dbh->prepare($sql);
-        $statement->bindParam(':userid', $userid, PDO::PARAM_INT);
+        $statement->bindParam(':username', $username, PDO::PARAM_STR);
         $statement->bindParam(':content', $content, PDO::PARAM_STR);
 
         // execute
@@ -166,21 +166,19 @@ class Database
         return $result;
     }
 
-    function getPosts($postid) {
+    function getPosts() {
         $dbh = $this->dbh;
         // Define the query
-        $sql = "SELECT * FROM posts WHERE postid= :postid";
+        $sql = "SELECT * FROM posts";
 
         // Prepare the statement
         $statement = $dbh->prepare($sql);
-
-        $statement->bindParam(":postid", $postid, PDO::PARAM_STR);
 
         // Execute the statement
         $statement->execute();
 
         // Process the result
-        $row = $statement->fetch(PDO::FETCH_ASSOC);
-        return $row;
+        $result = $statement->fetchall(PDO::FETCH_ASSOC);
+        return $result;
     }
 }

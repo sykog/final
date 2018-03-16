@@ -46,15 +46,20 @@ $f3->route('GET|POST /blog', function($f3, $params) {
 
     // access the database
     $database = new Database();
+    // grab every post from the database
     $posts = $database->getPosts();
     $member = $database->getMember($_SESSION['user']);
+    // create member from database
     $user = new Member($member[0]['username'], $member[0]['password'], $member[0]['premium'], $member[0]['numPosts']);
+
     if ($user->getPremium() == 1) {
         $f3->set("premium", "true");
         if(isset($_POST['submit'])) {
             $comment = $_POST['blogPost'];
             $title = $_POST['title'];
-            $user->blogPost($title, $comment);
+            if ($comment != "" || $title != "") {
+                $user->blogPost($title, $comment);
+            }
         }
     }
 
@@ -63,13 +68,6 @@ $f3->route('GET|POST /blog', function($f3, $params) {
     $template = new Template();
     echo $template->render('pages/navbar.html');
     echo $template->render('pages/posts.html');
-
-
-    /*$username = "sykog";
-    $member = $database->getMember($username);
-    $comment = "My personal favorite is peanut butter ice cream. The peanut butter ice cream at Coldstone is delicious, but I never see it at Kent Station anymore. I sometimes see it at other locations, and get it almost ever time. As far as toppings go, I really like Reeses or graham crackers. Actually, why not both?";
-    $user = new Member($member[0]['username'], $member[0]['password'], $member[0]['premium'], $member[0]['numPosts']);
-    $user->blogPost($comment); */
 });
 
 //Define a route to log in

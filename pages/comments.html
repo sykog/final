@@ -18,29 +18,49 @@
 
             <div class="container">
 
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <h2 class="card-title">{{ @post['title'] }}</h2>
-                        </div>
-                        <div class="card-body">
-                            <p class="card-text">{{ @post['content'] }}</p>
-                        </div>
-                        <div class="card-footer">
-                            <p class="foot">{{ @post['commentCount']}} Comments  Posted on {{ @post['datetime']}} by {{ @post['username'] }}</p>
-                        </div>
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h2 class="card-title">{{ @post['title'] }}</h2>
                     </div>
+                    <div class="card-body">
+                        <p class="card-text">{{ @post['content'] }}</p>
+                    </div>
+                    <div class="card-footer">
+                        <p class="foot">{{ @post['commentCount']}} Comments  Posted on {{ @post['datetime']}} by {{ @post['username'] }}</p>
+                    </div>
+                </div>
 
-                    <div id="comments"></div>
+                <div class="comment card mb-4">
+                    <section class="username">
+                        <h3>bob</h3>
+                    </section>
 
-                <check if="{{@loggedIn == 'true'}}">
-                    <button type="button" id="new" class="btn">Comment</button><br>
-                </check>
+                    <section class="content">
+                        <button type="button" class="new btn">Reply</button>
+                        <p>My favorite ice cream is chocolate</p>
+                    </section>
+                </div>
 
-                <form id="newForm" method="post" action=""></form>
+                <div class="comment card mb-4">
+                    <section class="username">
+                        <h3>bob</h3>
+                    </section>
 
+                    <section class="content">
+                        <button type="button" class="new btn">Reply</button>
+                        <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
+
+                        The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.</p>
+                    </section>
+                </div>
 
             </div><!-- Categories container -->
 
+            <form class="newForm" method="post" action="">
+                <check if="{{@loggedIn == 'true'}}">
+                <button type="button" class="new btn">Comment</button><br>
+                </check>
+            </form>
         </div>
 
         <script src="http://code.jquery.com/jquery.js"></script>
@@ -53,8 +73,8 @@
             form += "<button type='submit' name='submit' class=\"btn\">Create Post</button>";
 
             $("#new").click(function() {
-                $("#new").hide();
-                $("#newForm").html(form);
+                $(".new").hide();
+                $(".newForm").html(form);
             });//end click function
 
         </script>

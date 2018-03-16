@@ -79,3 +79,15 @@ div.main-login {
     width: 40%;
     min-width: 40%;
 }
+
+.btn {
+    font-family: "Shadows Into Light", "Arial", serif;
+    letter-spacing: 3px;
+    background: #008CFF;
+    font-size: 25px;
+    color: #FFFFFF;
+}
+
+.btn:active, .btn:hover {
+    background: #38CAE2;
+}

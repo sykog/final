@@ -182,4 +182,23 @@ class Database
         $result = $statement->fetchall(PDO::FETCH_ASSOC);
         return $result;
     }
+
+    function getPost($postid) {
+        $dbh = $this->dbh;
+        // Define the query
+        $sql = "SELECT * FROM posts WHERE postid= :postid";
+
+        // Prepare the statement
+        $statement = $dbh->prepare($sql);
+
+        //Bind the parameter
+        $statement->bindParam(":postid", $postid, PDO::PARAM_INT);
+
+        // Execute the statement
+        $statement->execute();
+
+        // Process the result
+        $row = $statement->fetch(PDO::FETCH_ASSOC);
+        return $row;
+    }
 }

@@ -70,6 +70,20 @@ $f3->route('GET|POST /blog', function($f3, $params) {
     echo $template->render('pages/posts.html');
 });
 
+//Define a new route for a specific post
+$f3->route('GET|POST /blog/@postid', function($f3, $params) {
+
+    $database = new Database();
+    // grab the post from the database
+    $postid = $params['postid'];
+    $post = $database->getPost($postid);
+    $f3->set("post", $post);
+    $template = new Template();
+    echo $template->render('pages/navbar.html');
+    echo $template->render('pages/comments.html');
+
+});
+
 //Define a route to log in
 $f3->route('GET|POST /login', function($f3, $params) {
 

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>The Latest Scoop</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!--Style sheets-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+        <link rel="stylesheet" href="/328/final/styles/home-styles.css">
+        <link rel="stylesheet" href="/328/final/styles/nav-styles.css">
+        <link rel="stylesheet" href="/328/final/styles/posts-styles.css">
+    </head>
+    <body>
+
+
+        <div id="main">
+
+            <div class="container">
+
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h2 class="card-title">{{ @post['title'] }}</h2>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">{{ @post['content'] }}</p>
+                        </div>
+                        <div class="card-footer">
+                            <p class="foot">{{ @post['commentCount']}} Comments  Posted on {{ @post['datetime']}} by {{ @post['username'] }}</p>
+                        </div>
+                    </div>
+
+                    <div id="comments"></div>
+
+                <check if="{{@loggedIn == 'true'}}">
+                    <button type="button" id="new" class="btn">Comment</button><br>
+                </check>
+
+                <form id="newForm" method="post" action=""></form>
+
+
+            </div><!-- Categories container -->
+
+        </div>
+
+        <script src="http://code.jquery.com/jquery.js"></script>
+        <script>
+
+            var form ="<label for=\"title\">Title</label>";
+            form+="<input type=\"text\" class=\"form-control\" id=\"title\" name=\"title\" placeholder=\"Title\">";
+            form +="<label for=\"blogPost\">Post Content</label><br>";
+            form+= "<textarea class=\"form-control\" id=\"blogPost\" name=\"blogPost\" rows=\"8\"></textarea><br>";
+            form += "<button type='submit' name='submit' class=\"btn\">Create Post</button>";
+
+            $("#new").click(function() {
+                $("#new").hide();
+                $("#newForm").html(form);
+            });//end click function
+
+        </script>
+    </body>
+</html>

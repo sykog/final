@@ -86,7 +86,7 @@
          * @param $comment the post being made
          * @return void
          */
-        function blogPost($comment)
+        function blogPost($title, $comment)
         {
             // exit if not a premium member
             if ($this->premium != 1) {
@@ -97,7 +97,7 @@
             $database = new Database();
             $username = $database->getMember($this->username)[0]['username'];
             // add post to the database
-            $database->addPost($username, $comment);
+            $database->addPost($username, $title, $comment);
             // update post count
             $this->comments = $this->comments + 1;
             $database->updatePostCount($this->username, $this->comments);

@@ -53,7 +53,8 @@ $f3->route('GET|POST /blog', function($f3, $params) {
         $f3->set("premium", "true");
         if(isset($_POST['submit'])) {
             $comment = $_POST['blogPost'];
-            $user->blogPost($comment);
+            $title = $_POST['title'];
+            $user->blogPost($title, $comment);
         }
     }
 

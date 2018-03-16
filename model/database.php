@@ -68,16 +68,17 @@ class Database
      * @param content post being made
      * @return void
      */
-    function addPost($username, $content)
+    function addPost($username, $title, $content)
     {
         $dbh = $this->dbh;
         // define the query
-        $sql = "INSERT INTO posts(username, content)
-          VALUES (:username, :content)";
+        $sql = "INSERT INTO posts(username, title, content)
+          VALUES (:username, :title, :content)";
 
         // prepare the statement
         $statement = $dbh->prepare($sql);
         $statement->bindParam(':username', $username, PDO::PARAM_STR);
+        $statement->bindParam(':title', $title, PDO::PARAM_STR);
         $statement->bindParam(':content', $content, PDO::PARAM_STR);
 
         // execute

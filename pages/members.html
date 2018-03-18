@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Members</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!--Style sheets-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+        <link rel="stylesheet" href="/328/final/styles/home-styles.css">
+        <link rel="stylesheet" href="/328/final/styles/nav-styles.css">
+    </head>
+    <body>
+
+        <div id="main">
+
+            <div class="container">
+
+                <h2>Members</h2>
+
+                <repeat group="{{@allUsers}}" value="{{@users}}">
+                    <ul>
+                        <li><a href="#">{{ @users['username']}}</a> {{ @users['numPosts']}} post(s)</li>
+                    </ul>
+                </repeat>
+
+            </div><!-- Categories container -->
+
+        </div>
+
+        <script type="text/javascript" src="assets/js/bootstrap.js"></script>
+    </body>
+</html>

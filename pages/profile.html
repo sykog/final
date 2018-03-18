@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>{{@username}}'s Profile</title>
+    <title>Posts by {{ @username }}</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -12,31 +12,27 @@
 </head>
 <body>
 
-        <div class="container" id="main">
-            <!--User image-->
-            <img src="../final/images/default-image.png" alt="user image">
-            <div id="userInfo">
-                <p>Username: {{@username}}</p>
-                <p>Location: Seattle</p>
-                <p>Bio: Empty</p>
-            </div>
+    <div id="main">
+        <div class="container">
 
-            <hr>
+            <h2>Posts by {{ @username }}</h2><br>
 
-            <div id="groups">
-                <h3>Groups</h3>
-                <ul>
-                    <li>Ice Cream Enthusiasts</li>
-                    <li>Animal Memes</li>
-                </ul>
-                <h3>Interests</h3>
-                <ul>
-                    <li>Cats</li>
-                    <li>Ice Cream</li>
-                </ul>
-            </div>
+            <repeat group="{{@memberPosts}}" value="{{@posts}}">
 
-        </div><!--End div 'container'-->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h2 class="card-title">{{ @posts['title'] }}</h2>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">{{ @posts['content'] }}</p>
+                    </div>
+                    <div class="card-footer">
+                        <p class="foot"><a href="blog/{{ @posts['postid'] }}">{{ @posts['commentCount']}} Comments</a>  Posted on {{ @posts['datetime']}} by <a href="#">{{ @posts['username'] }}</a></p>
+                    </div>
+                </div>
+            </repeat>
+        </div>
+    </div>
 
 </body>
 </html>

@@ -121,13 +121,14 @@ class Database
 
         // Process the result
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-        foreach ($result as $row) {
+        /*foreach ($result as $row) {
             echo "<tr><td>" . $row['userid'] . "</td>";
             echo "<td>" . $row['usename'] . "</td>";
             echo "<td>" . $row['password'] . "</td>";
             echo "<td>" . $row['premium'] . "</td>";
             echo "<td>" . $row['numposts'] . "</td>";
-        }
+        } */
+        return $result;
     }
 
     function memberExists($username)
@@ -183,6 +184,25 @@ class Database
         return $result;
     }
 
+    function getMemberPosts($username) {
+        $dbh = $this->dbh;
+        // Define the query
+        $sql = "SELECT * FROM posts WHERE username= :username";
+
+        // Prepare the statement
+        $statement = $dbh->prepare($sql);
+
+        // Bind the parameters
+        $statement->bindParam(":username", $username, PDO::PARAM_STR);
+
+        // Execute the statement
+        $statement->execute();
+
+        // Process the result
+        $result = $statement->fetchall(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
     function getPost($postid) {
         $dbh = $this->dbh;
         // Define the query
@@ -201,4 +221,5 @@ class Database
         $row = $statement->fetch(PDO::FETCH_ASSOC);
         return $row;
     }
+
 }

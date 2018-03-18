@@ -91,3 +91,16 @@ div.main-login {
 .btn:active, .btn:hover {
     background: #38CAE2;
 }
+
+li {
+    font-family: "Shadows Into Light", "Arial", serif;
+    letter-spacing: 3px;
+    color: #43826A;
+    font-size: 25px;
+}
+
+h2 {
+    font-family: "Shadows Into Light", "Arial", serif;
+    letter-spacing: 3px;
+    color: #43826A;
+}

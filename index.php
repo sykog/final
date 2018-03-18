@@ -33,9 +33,15 @@ $f3->route('GET /', function($f3, $params) {
 });
 
 //Define a route to get to a user's profile
-$f3->route('GET /profile-@user', function($f3, $params) {
+$f3->route('GET /profile/@username', function($f3, $params) {
 
+    // access the database
+    $database = new Database();
+    $username = $params['username'];
     $f3->set('username', $params['username']);
+    $posts = $database->getMemberPosts($username);
+    $f3->set('memberPosts', $posts);
+
     $template = new Template();
     echo $template->render('pages/navbar.html');
     echo $template->render('pages/profile.html');
@@ -150,6 +156,22 @@ $f3->route('GET|POST /login', function($f3, $params) {
             echo "Incorrect username or password.";
         }
     }
+});
+
+//Define a route to the members page
+$f3->route('GET /members', function($f3, $params) {
+
+    // access the database
+    $database = new Database();
+    //Get all the users
+    $users = $database->selectMember();
+
+    $f3->set("allUsers", $users);
+
+    $template = new Template();
+    echo $template->render('pages/navbar.html');
+    echo $template->render('pages/members.html');
+
 });
 
 //Define a route to log out

@@ -40,7 +40,9 @@ $f3->route('GET /profile/@username', function($f3, $params) {
     $username = $params['username'];
     $f3->set('username', $params['username']);
     $posts = $database->getMemberPosts($username);
+    $comment = $database->getMemberComments($username);
     $f3->set('memberPosts', $posts);
+    $f3->set('memberComments', $comment);
 
     $template = new Template();
     echo $template->render('pages/navbar.html');

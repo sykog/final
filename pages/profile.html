@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
     <link rel="stylesheet" href="/328/final/styles/home-styles.css">
     <link rel="stylesheet" href="/328/final/styles/nav-styles.css">
+    <link rel="stylesheet" href="/328/final/styles/posts-styles.css">
 </head>
 <body>
 
@@ -27,11 +28,33 @@
                         <p class="card-text">{{ @posts['content'] }}</p>
                     </div>
                     <div class="card-footer">
-                        <p class="foot"><span><a href="blog/{{ @posts['postid'] }}">{{ @posts['commentCount']}} Comments</a></span>
+                        <p class="foot"><span><a href="/328/final/blog/{{ @posts['postid'] }}">{{ @posts['commentCount']}} Comments</a></span>
                             Posted on {{ @posts['datetime']}} by <a href="#">{{ @posts['username'] }}</a></p>
                     </div>
                 </div>
+            </repeat><br><br>
+
+            <h2>Comments by {{ @username }}</h2><br>
+
+            <repeat group="{{@memberComments}}" value="{{@comment}}">
+                <div class="comment card mb-4">
+                    <div class="comment card-header">
+                        <h3>{{ @comment['username'] }}</h3><p>- Posted at {{ @comment['datetime'] }}</p>
+                    </div>
+
+                    <div class="card-body">
+                        <section>
+                            <p>{{ @comment['content'] }}</p>
+                        </section>
+                    </div>
+                    <div class="card-footer">
+                        <p class="foot">
+                            <a href="/328/final/blog/{{ @comment['postid'] }}">View Original Post</a>
+                        </p>
+                    </div>
+                </div>
             </repeat>
+
         </div>
     </div>
 

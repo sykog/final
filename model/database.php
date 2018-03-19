@@ -321,15 +321,34 @@ class Database
      * @return array every row of comment for that post
      */
     function getComments($postid) {
+    $dbh = $this->dbh;
+    // Define the query
+    $sql = "SELECT * FROM comments  WHERE postid= :postid ORDER BY commentid";
+
+    // Prepare the statement
+    $statement = $dbh->prepare($sql);
+
+    //Bind the parameter
+    $statement->bindParam(":postid", $postid, PDO::PARAM_INT);
+
+    // Execute the statement
+    $statement->execute();
+
+    // Process the result
+    $result = $statement->fetchall(PDO::FETCH_ASSOC);
+    return $result;
+    }
+
+    function getMemberComments($username) {
         $dbh = $this->dbh;
         // Define the query
-        $sql = "SELECT * FROM comments  WHERE postid= :postid ORDER BY commentid";
+        $sql = "SELECT * FROM comments  WHERE username= :username ORDER BY commentid";
 
         // Prepare the statement
         $statement = $dbh->prepare($sql);
 
         //Bind the parameter
-        $statement->bindParam(":postid", $postid, PDO::PARAM_INT);
+        $statement->bindParam(":username", $username, PDO::PARAM_STR);
 
         // Execute the statement
         $statement->execute();

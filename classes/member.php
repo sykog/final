@@ -100,7 +100,6 @@
             // add post to the database
             $database->addPost($username, $title, $comment);
             // update post count
-            $this->comments = $this->comments + 1;
             $database->updatePostCount($this->username, $this->comments);
         }
 
@@ -119,7 +118,6 @@
             // add post to the database
             $database->addComment($postid, $commentid, $username, $comment);
             // update post count
-            $this->comments = $this->comments + 1;
             $database->updatePostCount($this->username, $this->comments);
         }
     }

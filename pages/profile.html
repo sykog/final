@@ -39,7 +39,7 @@
             <repeat group="{{@memberComments}}" value="{{@comment}}">
                 <div class="comment card mb-4">
                     <div class="comment card-header">
-                        <h3>{{ @comment['username'] }}</h3><p>- Posted at {{ @comment['datetime'] }}</p>
+                        <a href="/328/final/blog/{{ @comment['postid'] }}">View Original Post</a><p>Posted at {{ @comment['datetime'] }}</p>
                     </div>
 
                     <div class="card-body">
@@ -47,11 +47,7 @@
                             <p>{{ @comment['content'] }}</p>
                         </section>
                     </div>
-                    <div class="card-footer">
-                        <p class="foot">
-                            <a href="/328/final/blog/{{ @comment['postid'] }}">View Original Post</a>
-                        </p>
-                    </div>
+
                 </div>
             </repeat>
 

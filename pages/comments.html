@@ -34,10 +34,10 @@
                 <repeat group="{{@allComments}}" value="{{@comment}}">
                     <div class="comment card mb-4">
                         <div class="comment card-header">
-                            <h3>{{ @comment['username'] }}</h3><p>- Posted at {{ @comment['datetime'] }}</p>
+                            <h3>{{ @comment['username'] }}</h3><p>Posted at {{ @comment['datetime'] }}
                             <check if="{{@loggedIn == 'true'}}">
-                                <button type="button" class="new btn">Reply<span>{{ @comment['commentid'] }}</span></button><br>
-                            </check>
+                                <button type="button" class="new btn btn-xs" id="reply">Reply<span>{{ @comment['commentid'] }}</span></button><br>
+                            </check></p>
                             <check if="{{@user}}=={{@comment['username']}}">
                                 <button type="button" id="edit" class="new btn">Edit</button>
                             </check>

@@ -72,6 +72,10 @@ div.card-footer p.foot {
     text-align: right;
 }
 
+div.card-footer p.foot span {
+    float: left;
+}
+
 /* Login Styles */
 
 div.main-login {

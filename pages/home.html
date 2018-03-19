@@ -34,16 +34,15 @@
 
 			<div class="card mb-4">
 				<div class="card-header">
-					<h2 class="card-title">What is your favorite ice cream flavor?</h2>
+					<h2 class="card-title">{{ @post['title'] }}</h2>
 				</div>
 				<div class="card-body">
-					<p class="card-text">My personal favorite is peanut butter ice cream. The peanut butter ice
-					at Coldstone is delicious, by I never see it at Kent Station anymore. I sometimes see it at
-					other locations, and get it almost ever time. As far as toppings go, I really like Reeses
-					or graham crackers. Actually, why not both?</p>
+					<p class="card-text">{{ @post['content'] }}</p>
 				</div>
 				<div class="card-footer">
-					<p class="foot">Posted on March 1, 2017 by <a href="profile/sykog">sykog</a></p>
+					<p class="foot"><span><a href="blog/{{ @post['postid'] }}">{{ @post['commentCount']}} Comments</a></span>
+						Posted on {{ @posts['datetime']}} by <a href="/328/final/profile/{{ @post['username'] }}">
+							{{ @post['username'] }}</a></p>
 				</div>
 			</div>
 

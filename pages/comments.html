@@ -34,13 +34,13 @@
                 <repeat group="{{@allComments}}" value="{{@comment}}">
                     <div class="comment card mb-4">
                         <div class="comment card-header">
-                            <h3>{{ @comment['username'] }}</h3><p>Posted at {{ @comment['datetime'] }}
-                            <check if="{{@loggedIn == 'true'}}">
-                                <button type="button" class="new btn btn-xs" id="reply">Reply<span>{{ @comment['commentid'] }}</span></button><br>
-                            </check></p>
-                            <check if="{{@user}}=={{@comment['username']}}">
-                                <button type="button" id="edit" class="new btn">Edit</button>
-                            </check>
+                            <h3>{{ @comment['username'] }}</h3>
+                            <p>Posted at {{ @comment['datetime'] }}
+                                <button type="button" class="new btn btn-xs" id="reply">Reply<span>{{ @comment['commentid'] }}</span></button>
+                                <check if="{{@user}}=={{@comment['username']}}">
+                                    <button type="button" id="edit" class="new btn">Edit</button>
+                                </check>
+                            </p>
                         </div>
 
                         <div class="card-body">
@@ -53,9 +53,7 @@
 
             </div><!-- Categories container -->
 
-            <check if="{{@loggedIn == 'true'}}">
-                <button type="button" class="new btn">Comment</button><br>
-            </check>
+            <button type="button" class="new btn">Comment</button><br>
 
             <form class="newForm" method="post" action="">
 
@@ -63,6 +61,18 @@
         </div>
 
         <script src="http://code.jquery.com/jquery.js"></script>
+        <check if="{{@loggedIn == 'true'}}">
+            <true>
+                <script>
+                    $("button").css("display", "initial");
+                </script>
+            </true>
+            <false>
+                <script>
+                    $("button").css("display", "none");
+                </script>
+            </false>
+        </check>
         <script>
 
             var form = "<label for=\"blogComment\">Post Content</label>";

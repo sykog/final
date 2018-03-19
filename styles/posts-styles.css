@@ -34,15 +34,11 @@ div.comment.card-header button {
     clear: none;
 }
 
-button#edit {
-    margin: -33px 8px 0px 0px;
+button#edit, button#reply {
+    margin-left: 8px;
+    font-size: 1em;
 }
 
 button span, input#commentid {
     display: none;
-}
-
-#reply {
-    font-size: 15px;
-    float: right;
 }

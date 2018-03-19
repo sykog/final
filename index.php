@@ -23,13 +23,15 @@ if(isset($_SESSION['user'])){
 //Define a route to go to home page
 $f3->route('GET /', function($f3, $params) {
 
+    $database = new Database();
+    // grab the post from the database
+    $postid = 2;
+    $post = $database->getPost($postid);
+    $f3->set("post", $post);
+
     $template = new Template();
     echo $template->render('pages/navbar.html');
     echo $template->render('pages/home.html');
-
-    if(isset($_SESSION['user'])){
-        echo $_SESSION['user'];
-    }
 });
 
 //Define a route to get to a user's profile

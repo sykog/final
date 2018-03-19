@@ -31,10 +31,12 @@
                     </div>
                 </div>
 
-                <div class="card mb-4">
+                <div class="comment card mb-4">
                     <div class="comment card-header">
                         <h3>bob</h3><p>- Posted at</p>
-                        <button type="button" class="new btn">Reply</button>
+                        <check if="{{@loggedIn == 'true'}}">
+                            <button type="button" class="new btn">Reply<span>100</span></button><br>
+                        </check>
                     </div>
 
                     <div class="card-body">
@@ -44,10 +46,12 @@
                     </div>
                 </div>
 
-                <div class="card mb-4">
+                <div class="comment card mb-4">
                     <div class="comment card-header">
                         <h3>bob</h3><p>- Posted at</p>
-                        <button type="button" class="new btn">Reply</button>
+                        <check if="{{@loggedIn == 'true'}}">
+                            <button type="button" class="new btn">Reply<span>200</span></button><br>
+                        </check>
                     </div>
 
                     <div class="card-body">
@@ -60,23 +64,33 @@
                 </div>
 
             </div><!-- Categories container -->
+            <check if="{{@loggedIn == 'true'}}">
+                <button type="button" class="new btn">Comment</button><br>
+            </check>
 
             <form class="newForm" method="post" action="">
-                <check if="{{@loggedIn == 'true'}}">
-                <button type="button" class="new btn">Comment</button><br>
-                </check>
+
             </form>
         </div>
 
         <script src="http://code.jquery.com/jquery.js"></script>
         <script>
-
             var form = "<label for=\"blogPost\">Post Content</label><br>";
             form+= "<textarea class=\"form-control\" id=\"blogPost\" name=\"blogPost\" rows=\"8\"></textarea><br>";
             form += "<button type='submit' name='submit' class=\"btn\">Create Post</button>";
 
             $(".new").click(function() {
+                // get int value of span tag in button
+                replyid = parseInt($(this).find("span").html());
+                if ($(this).html() == "Comment") {
+                   // get int value of last span tag
+                    replyid = parseInt($("span").last().html()) + 99;
+                }
+                console.log(replyid);
+
                 $(".newForm").html(form);
+                // scrolls to bottom of page
+                $("html, body").animate({ scrollTop: $(document).height() }, "medium");
             });//end click function
 
         </script>

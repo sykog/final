@@ -105,13 +105,20 @@
 
         /**
          * comment to to a post, send to database
+         * @param $postid id of the post being comment on
+         * @param id for the comment
          * @param $comment the comment being made
          * @return void
          */
-        function comment($comment)
+        function comment($postid, $commentid, $comment)
         {
-
-
+            // access the database
+            $database = new Database();
+            $username = $database->getMember($this->username)[0]['username'];
+            // add post to the database
+            $database->addComment($postid, $commentid, $username, $comment);
+            // update post count
             $this->comments = $this->comments + 1;
+            $database->updatePostCount($this->username, $this->comments);
         }
     }

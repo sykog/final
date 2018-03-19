@@ -87,7 +87,32 @@ class Database
     }
 
     /**
-     * Adds blog post to the database
+     * Adds comment to the database
+     * @param userid id of user
+     * @param content post being made
+     * @return void
+     */
+    function addComment($postid, $commentid, $username, $content)
+    {
+        $dbh = $this->dbh;
+        // define the query
+        $sql = "INSERT INTO posts(username, title, content)
+          VALUES (:username, :title, :content)";
+
+        // prepare the statement
+        $statement = $dbh->prepare($sql);
+        $commentid = $commentid + 1;
+        $statement->bindParam(':username', $username, PDO::PARAM_STR);
+        $statement->bindParam(':title', $title, PDO::PARAM_STR);
+        $statement->bindParam(':content', $content, PDO::PARAM_STR);
+
+        // execute
+        $statement->execute();
+        $id = $dbh->lastInsertId();
+    }
+
+    /**
+     * increases post count by 1 for specified user
      * @param username username
      * @param numPosts number of posts made
      * @return void
@@ -96,7 +121,7 @@ class Database
     {
         $dbh = $this->dbh;
         // define the query
-        $sql = "UPDATE users SET numPosts = :numPosts WHERE username = :username";
+        $sql = "UPDATE users SET numPosts = :numPosts + 1 WHERE username = :username";
 
         // prepare the statement
         $statement = $dbh->prepare($sql);

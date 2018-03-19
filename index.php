@@ -84,6 +84,11 @@ $f3->route('GET|POST /blog/@postid', function($f3, $params) {
     $postid = $params['postid'];
     $post = $database->getPost($postid);
     $f3->set("post", $post);
+
+    $member = $database->getMember($_SESSION['user']);
+    // create member from database
+    $user = new Member($member[0]['username'], $member[0]['password'], $member[0]['premium'], $member[0]['numPosts']);
+
     $template = new Template();
     echo $template->render('pages/navbar.html');
     echo $template->render('pages/comments.html');

@@ -188,7 +188,7 @@ $f3->route('GET /members', function($f3, $params) {
     // access the database
     $database = new Database();
     //Get all the users
-    $users = $database->selectMember();
+    $users = $database->selectMembers();
 
     $f3->set("allUsers", $users);
 

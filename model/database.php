@@ -10,8 +10,8 @@
 require_once $_SERVER['DOCUMENT_ROOT']."/../config.php";
 
 /**
- * The Database class pulls the users table from the database
- * Members can be inserted into the table and selected from it
+ * The Database class pulls the users, posts, and comments tables from the database
+ * Rows from users, posts, and comments can be added, selected and updated
  * @author Antonio Suarez <asuarez2@mail.greenriver.edu>
  * @copyright 2018
  */
@@ -63,8 +63,9 @@ class Database
     }
 
     /**
-     * Adds blog post to the databas
-     * @param userid id of user
+     * Adds blog post to the database
+     * @param username name of user
+     * $param title title of post
      * @param content post being made
      * @return void
      */
@@ -88,8 +89,10 @@ class Database
 
     /**
      * Adds comment to the database
-     * @param userid id of user
-     * @param content post being made
+     * @param post id of comment's post
+     * @param commentid id of comment being made
+     * @param username name of user making comment
+     * @param content comment being made
      * @return void
      */
     function addComment($postid, $commentid, $username, $content)
@@ -133,7 +136,7 @@ class Database
 
     /**
      * increases comment count by 1 for specified post
-     * @param username username of post seleted
+     * @param postid id of selected post
      * @param commentCount number of comments made for selected post
      * @return void
      */
@@ -176,7 +179,11 @@ class Database
         $statement->execute();
     }
 
-    function selectMember()
+    /**
+     * select of of the database's users
+     * @return array array of each row in the users table
+     */
+    function selectMembers()
     {
         $dbh = $this->dbh;
         // Define the query
@@ -193,6 +200,11 @@ class Database
         return $result;
     }
 
+    /**
+     * Returns 1 if username is in database, 0 if not
+     * @param $username username being searched
+     * @return bool 1 if username is found
+     */
     function memberExists($username)
     {
         $dbh = $this->dbh;
@@ -212,6 +224,11 @@ class Database
         return $row['username'] == $username;
     }//end memberExists()
 
+    /**
+     * return user by selected username
+     * @param $username username being searcher
+     * @return array every column of user's row
+     */
     function getMember($username) {
         $dbh = $this->dbh;
         // Define the query
@@ -230,6 +247,10 @@ class Database
         return $result;
     }
 
+    /**
+     * Grab every post from the database
+     * @return array every row of posts
+     */
     function getPosts() {
         $dbh = $this->dbh;
         // Define the query
@@ -246,6 +267,11 @@ class Database
         return $result;
     }
 
+    /**
+     * Grab every post from the database made by specified member
+     * @param userame username being searched
+     * @return array every row of selected posts
+     */
     function getMemberPosts($username) {
         $dbh = $this->dbh;
         // Define the query
@@ -265,6 +291,11 @@ class Database
         return $result;
     }
 
+    /**
+     * Get specific post selected
+     * @param $postid id of searched post
+     * @return every row of post by its id
+     */
     function getPost($postid) {
         $dbh = $this->dbh;
         // Define the query
@@ -284,6 +315,11 @@ class Database
         return $row;
     }
 
+    /**
+     * Grab every comment by specified post id from the database
+     * @param postid id of post to get comments
+     * @return array every row of comment for that post
+     */
     function getComments($postid) {
         $dbh = $this->dbh;
         // Define the query

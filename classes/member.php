@@ -2,7 +2,8 @@
 
     /**
      * The Member class represents a member on the blog
-     * Members have usernames and passwords. Members can comment on blog posts
+     * Members have usernames and passwords. Members can comment on blog posts and
+     * create new posts if they are premium members
      * @author Antonio Suarez <asuarez2@mail.greenriver.edu>
      * @author Sam Ourn <sourn@mail.greenriver.edu>
      * @copyright 2018

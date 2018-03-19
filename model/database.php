@@ -131,6 +131,51 @@ class Database
         $statement->execute();
     }
 
+    /**
+     * increases comment count by 1 for specified post
+     * @param username username of post seleted
+     * @param commentCount number of comments made for selected post
+     * @return void
+     */
+    function updateCommentCount($postid, $commentCount)
+    {
+        $dbh = $this->dbh;
+        // define the query
+        $sql = "UPDATE posts SET commentCount = :commentCount + 1 WHERE postid = :postid";
+
+        // prepare the statement
+        $statement = $dbh->prepare($sql);
+        $statement->bindParam(':commentCount', $commentCount, PDO::PARAM_INT);
+        $statement->bindParam(':postid', $postid, PDO::PARAM_INT);
+
+        // execute
+        $statement->execute();
+    }
+
+    /**
+     * update content of the comment
+     * @param username username of post seleted
+     * @param comment id of selected comment
+     * @param content new comment being added
+     * @return void
+     */
+    function editComment($commentid, $username, $content)
+    {
+        $dbh = $this->dbh;
+        // define the query
+        $sql = "UPDATE comments SET content = :content WHERE commentid = :commentid 
+          AND username = :username";
+
+        // prepare the statement
+        $statement = $dbh->prepare($sql);
+        $statement->bindParam(':content', $content, PDO::PARAM_STR);
+        $statement->bindParam(':username', $username, PDO::PARAM_STR);
+        $statement->bindParam(':commentid', $commentid, PDO::PARAM_INT);
+
+        // execute
+        $statement->execute();
+    }
+
     function selectMember()
     {
         $dbh = $this->dbh;
@@ -145,13 +190,6 @@ class Database
 
         // Process the result
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-        /*foreach ($result as $row) {
-            echo "<tr><td>" . $row['userid'] . "</td>";
-            echo "<td>" . $row['usename'] . "</td>";
-            echo "<td>" . $row['password'] . "</td>";
-            echo "<td>" . $row['premium'] . "</td>";
-            echo "<td>" . $row['numposts'] . "</td>";
-        } */
         return $result;
     }
 

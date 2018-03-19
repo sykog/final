@@ -96,8 +96,15 @@ $f3->route('GET|POST /blog/@postid', function($f3, $params) {
     if(isset($_POST['submit'])) {
         $comment = $_POST['blogComment'];
         $commentid = $_POST['commentid'] + 1;
+        $commentEdit = $_POST['editComment'];
+
+        if ($commentEdit != "") {
+            // comment id - 1 wont change the indent
+            $database->editComment($commentid - 1, $user->getUsername(), $commentEdit);
+        }
         if ($comment != "") {
             $user->comment($postid, $commentid, $comment);
+            $database->updateCommentCount($postid, $post['commentCount'] + 1);
         }
     }
 

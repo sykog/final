@@ -31,6 +31,11 @@ div.comment.card-header p {
 div.comment.card-header button {
     display: inline;
     float: right;
+    clear: none;
+}
+
+button#edit {
+    margin: -33px 8px 0px 0px;
 }
 
 button span, input#commentid {

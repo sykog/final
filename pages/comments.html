@@ -38,6 +38,9 @@
                             <check if="{{@loggedIn == 'true'}}">
                                 <button type="button" class="new btn">Reply<span>{{ @comment['commentid'] }}</span></button><br>
                             </check>
+                            <check if="{{@user}}=={{@comment['username']}}">
+                                <button type="button" id="edit" class="new btn">Edit</button>
+                            </check>
                         </div>
 
                         <div class="card-body">
@@ -61,18 +64,22 @@
 
         <script src="http://code.jquery.com/jquery.js"></script>
         <script>
+
             var form = "<label for=\"blogComment\">Post Content</label>";
             form+= "<textarea class=\"form-control\" id=\"blogComment\" name=\"blogComment\" rows=\"8\"></textarea><br>";
             form += "<button type='submit' name='submit' class=\"btn\">Create Post</button>";
 
+            // adds textarea to comment on posts
             $(".new").click(function() {
                 // get int value of span tag in button
-                replyid = parseInt($(this).find("span").html());
+                var replyid = parseInt($(this).find("span").html());
+                if (isNaN(replyid)) {
+                    replyid = $(this).parent().find("span").html();
+                }
                 if ($(this).html() == "Comment") {
                    // get int value of last span tag
                     replyid = parseInt($("span").last().html()) + 99;
                 }
-                console.log(replyid);
 
                 $(".newForm").html(form + "<input name='commentid' id='commentid' value=''>");
                 $("#commentid").val(replyid);
@@ -80,6 +87,26 @@
                 $("html, body").animate({ scrollTop: $(document).height() }, "medium");
             });//end click function
 
+            $("button#edit").click(function() {
+                // grabs content
+                var content = $(this).parent().parent().find("section p").html();
+                // inserts content into text area
+                $("#blogComment").html(content);
+                $("#blogComment").attr("name", "editComment");
+                $("#blogComment").attr("id", "editComment");
+            });//end click function
+
+            // properly indent replies
+            $("div.comment").each(function() {
+                // get the commentid
+                var indent = parseInt($(this).find("span").html());
+                indent = (indent % 100) * 20;
+                // max indent amount is 400 px
+                if (indent > 200) indent = 200;
+                indentPx = indent + "px";
+                // indent section based on what number reply it is
+                $(this).css("margin-left", indentPx);
+            });
         </script>
     </body>
 </html>

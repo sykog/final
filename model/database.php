@@ -96,19 +96,18 @@ class Database
     {
         $dbh = $this->dbh;
         // define the query
-        $sql = "INSERT INTO posts(username, title, content)
-          VALUES (:username, :title, :content)";
+        $sql = "INSERT INTO comments(postid, commentid, username, content)
+          VALUES (:postid, :commentid, :username, :content)";
 
         // prepare the statement
         $statement = $dbh->prepare($sql);
-        $commentid = $commentid + 1;
+        $statement->bindParam(':postid', $postid, PDO::PARAM_INT);
+        $statement->bindParam(':commentid', $commentid, PDO::PARAM_INT);
         $statement->bindParam(':username', $username, PDO::PARAM_STR);
-        $statement->bindParam(':title', $title, PDO::PARAM_STR);
         $statement->bindParam(':content', $content, PDO::PARAM_STR);
 
         // execute
         $statement->execute();
-        $id = $dbh->lastInsertId();
     }
 
     /**
@@ -247,4 +246,22 @@ class Database
         return $row;
     }
 
+    function getComments($postid) {
+        $dbh = $this->dbh;
+        // Define the query
+        $sql = "SELECT * FROM comments  WHERE postid= :postid ORDER BY commentid";
+
+        // Prepare the statement
+        $statement = $dbh->prepare($sql);
+
+        //Bind the parameter
+        $statement->bindParam(":postid", $postid, PDO::PARAM_INT);
+
+        // Execute the statement
+        $statement->execute();
+
+        // Process the result
+        $result = $statement->fetchall(PDO::FETCH_ASSOC);
+        return $result;
+    }
 }

@@ -27,43 +27,29 @@
                     </div>
                     <div class="card-footer">
                         <p class="foot"><span>{{ @post['commentCount']}} Comments</span>
-                            Posted at {{ @post['datetime']}} by <a href="/328/final/profile/{{ @post['username'] }}">{{ @post['username'] }}</a></p>
+                            Posted on {{ @post['datetime']}} by <a href="/328/final/profile/{{ @post['username'] }}">{{ @post['username'] }}</a></p>
                     </div>
                 </div>
 
-                <div class="comment card mb-4">
-                    <div class="comment card-header">
-                        <h3>bob</h3><p>- Posted at</p>
-                        <check if="{{@loggedIn == 'true'}}">
-                            <button type="button" class="new btn">Reply<span>100</span></button><br>
-                        </check>
-                    </div>
+                <repeat group="{{@allComments}}" value="{{@comment}}">
+                    <div class="comment card mb-4">
+                        <div class="comment card-header">
+                            <h3>{{ @comment['username'] }}</h3><p>- Posted at {{ @comment['datetime'] }}</p>
+                            <check if="{{@loggedIn == 'true'}}">
+                                <button type="button" class="new btn">Reply<span>{{ @comment['commentid'] }}</span></button><br>
+                            </check>
+                        </div>
 
-                    <div class="card-body">
-                        <section>
-                            <p>My favorite ice cream is chocolate</p>
-                        </section>
+                        <div class="card-body">
+                            <section>
+                                <p>{{ @comment['content'] }}</p>
+                            </section>
+                        </div>
                     </div>
-                </div>
-
-                <div class="comment card mb-4">
-                    <div class="comment card-header">
-                        <h3>bob</h3><p>- Posted at</p>
-                        <check if="{{@loggedIn == 'true'}}">
-                            <button type="button" class="new btn">Reply<span>200</span></button><br>
-                        </check>
-                    </div>
-
-                    <div class="card-body">
-                        <section>
-                            <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
-
-                            The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.</p>
-                        </section>
-                    </div>
-                </div>
+                </repeat>
 
             </div><!-- Categories container -->
+
             <check if="{{@loggedIn == 'true'}}">
                 <button type="button" class="new btn">Comment</button><br>
             </check>
@@ -75,8 +61,8 @@
 
         <script src="http://code.jquery.com/jquery.js"></script>
         <script>
-            var form = "<label for=\"blogPost\">Post Content</label><br>";
-            form+= "<textarea class=\"form-control\" id=\"blogPost\" name=\"blogPost\" rows=\"8\"></textarea><br>";
+            var form = "<label for=\"blogComment\">Post Content</label>";
+            form+= "<textarea class=\"form-control\" id=\"blogComment\" name=\"blogComment\" rows=\"8\"></textarea><br>";
             form += "<button type='submit' name='submit' class=\"btn\">Create Post</button>";
 
             $(".new").click(function() {
@@ -88,7 +74,8 @@
                 }
                 console.log(replyid);
 
-                $(".newForm").html(form);
+                $(".newForm").html(form + "<input name='commentid' id='commentid' value=''>");
+                $("#commentid").val(replyid);
                 // scrolls to bottom of page
                 $("html, body").animate({ scrollTop: $(document).height() }, "medium");
             });//end click function

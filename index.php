@@ -85,9 +85,21 @@ $f3->route('GET|POST /blog/@postid', function($f3, $params) {
     $post = $database->getPost($postid);
     $f3->set("post", $post);
 
+    // grab every comment from the database
+    $comments = $database->getComments($postid);
+    $f3->set("allComments", $comments);
+
     $member = $database->getMember($_SESSION['user']);
     // create member from database
     $user = new Member($member[0]['username'], $member[0]['password'], $member[0]['premium'], $member[0]['numPosts']);
+
+    if(isset($_POST['submit'])) {
+        $comment = $_POST['blogComment'];
+        $commentid = $_POST['commentid'] + 1;
+        if ($comment != "") {
+            $user->comment($postid, $commentid, $comment);
+        }
+    }
 
     $template = new Template();
     echo $template->render('pages/navbar.html');

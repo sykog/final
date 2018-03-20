@@ -254,7 +254,7 @@ class Database
     function getPosts() {
         $dbh = $this->dbh;
         // Define the query
-        $sql = "SELECT * FROM posts";
+        $sql = "SELECT * FROM posts ORDER BY postid DESC";
 
         // Prepare the statement
         $statement = $dbh->prepare($sql);
@@ -275,7 +275,7 @@ class Database
     function getMemberPosts($username) {
         $dbh = $this->dbh;
         // Define the query
-        $sql = "SELECT * FROM posts WHERE username= :username";
+        $sql = "SELECT * FROM posts WHERE username= :username ORDER BY postid DESC";
 
         // Prepare the statement
         $statement = $dbh->prepare($sql);

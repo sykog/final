@@ -111,7 +111,7 @@ $f3->route('GET|POST /blog/@postid', function($f3, $params) {
         }
         if ($comment != "") {
             $user->comment($postid, $commentid, $comment);
-            $database->updateCommentCount($postid, $post['commentCount'] + 1);
+            $database->updateCommentCount($postid, $post['commentCount']);
             $f3->reroute("/blog/".$params['postid']);
         }
     }

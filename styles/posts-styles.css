@@ -23,6 +23,10 @@ div.comment.card-header h3 {
     color: #008CFF;
 }
 
+div.comment.card-header h3 a {
+    color: #008CFF;
+}
+
 div.comment.card-header p {
     display: inline;
     float:right;

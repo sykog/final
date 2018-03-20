@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Shadows+Into+Light');
+
 /* Main Styles */
 
 body {
@@ -36,10 +37,16 @@ h1.title {
     margin-bottom: 2%;
 }
 
-div#main h3 a {
+h2 {
     font-family: "Shadows Into Light", "Arial", serif;
     letter-spacing: 3px;
     color: #43826A;
+}
+
+div#main h3 a {
+    font-family: "Shadows Into Light", "Arial", serif;
+    letter-spacing: 3px;
+    color: #008CFF;
 }
 
 /* Card Styles */
@@ -96,15 +103,25 @@ div.main-login {
     background: #38CAE2;
 }
 
+/* List Styles */
+
+ul {
+    margin: 4px;
+}
+
 li {
     font-family: "Shadows Into Light", "Arial", serif;
     letter-spacing: 3px;
     color: #43826A;
-    font-size: 25px;
+    font-size: 22px;
 }
 
-h2 {
-    font-family: "Shadows Into Light", "Arial", serif;
-    letter-spacing: 3px;
-    color: #43826A;
+/* Memberlist Ordering Styles */
+
+h2#orderHeader {
+    display: inline;
+}
+
+button.orderBy {
+    margin: 0px 8px;
 }

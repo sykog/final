@@ -18,18 +18,33 @@
 
             <div class="container">
 
-                <h2>Members</h2>
+                <h2 id="orderHeader">Members - Order By:</h2>
+                <button class="orderBy btn" id="orderName">Name</button>
+                <button class="orderBy btn" id="orderPosts">Number of Posts</button>
 
-                <repeat group="{{@allUsers}}" value="{{@users}}">
+                <!--<repeat group="{{@allUsers}}" value="{{@users}}">
                     <ul>
                         <li><a href="/328/final/profile/{{ @users['username']}}">{{ @users['username']}}</a> {{ @users['numPosts']}} post(s)</li>
                     </ul>
-                </repeat>
+                </repeat>-->
+
+                <ul id="userlist">
+                </ul>
 
             </div><!-- Categories container -->
 
         </div>
 
-        <script type="text/javascript" src="assets/js/bootstrap.js"></script>
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script>
+        $("button").click(function () {
+            var orderby = $(this).attr("id");
+            console.log(orderby);
+
+            $("#userlist").load('userlist.php', { category:orderby } );
+
+        });
+    </script>
+
     </body>
 </html>

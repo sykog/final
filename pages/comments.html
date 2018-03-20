@@ -36,7 +36,7 @@
                 <repeat group="{{@allComments}}" value="{{@comment}}">
                     <div class="comment card mb-4">
                         <div class="comment card-header">
-                            <h3>{{ @comment['username'] }}</h3>
+                            <h3><a href="/328/final/profile/{{ @comment['username'] }}">{{ @comment['username'] }}</a></h3>
                             <p>Posted at {{ @comment['datetime'] }}
                                 <button type="button" class="new btn btn-xs" id="reply">Reply<span>{{ @comment['commentid'] }}</span></button>
                                 <check if="{{@user}}=={{@comment['username']}}">

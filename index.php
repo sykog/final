@@ -135,30 +135,37 @@ $f3->route('GET|POST /login', function($f3, $params) {
     //if register button is clicked
     if (isset($_POST['register'])) {
 
+        require('../final/model/validation.php');
+
         $username = $_POST['username'];
         $password = sha1($_POST['password']);
         $confirm = sha1($_POST['confirm']);
         $success = true;
 
-        $user = new Member($username, $password, 0, 0);
+        if(validSignUp($username) && validSignUp($password)){
+            $user = new Member($username, $password, 0, 0);
+            if ($database->memberExists($user->getUsername()) ==1) $success = false;
+            if ($password == $confirm && $success) {
+                $database->addMember($username, $password, 0, 0);
+                $_SESSION['user'] = $username;
+                $f3->set('user', $_SESSION['user']);
+                $_SESSION["message"] = "";
+                $f3->reroute("/");
+            }
 
-        if ($database->memberExists($user->getUsername()) ==1) $success = false;
-        if ($password == $confirm && $success) {
-            $database->addMember($username, $password, 0, 0);
-            $_SESSION['user'] = $username;
-            $f3->set('user', $_SESSION['user']);
-            $_SESSION["message"] = "";
-            $f3->reroute("/");
+            if($password != $confirm){
+                $_SESSION["message"] = "Passwords do not match";
+                $f3->reroute("/login");
+            }
+            if(!$success) {
+                $_SESSION["message"] = "Username already exists";
+                $f3->reroute("/login");
+            }
+        }
+        else {
+            $_SESSION["message"] = "Username and password cannot contain spaces and must be under 40 characters";
         }
 
-        if($password != $confirm){
-            $_SESSION["message"] = "Passwords do not match";
-            $f3->reroute("/login");
-        }
-        if(!$success) {
-            $_SESSION["message"] = "Username already exists";
-            $f3->reroute("/login");
-        }
     }
 
     //if login button is clicked

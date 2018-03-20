@@ -19,6 +19,7 @@ $f3->set('user', $_SESSION['user']);
 if(isset($_SESSION['user'])){
     $f3->set("loggedIn", "true");
 }
+$f3->set('message', $_SESSION['message']);
 
 //Define a route to go to home page
 $f3->route('GET /', function($f3, $params) {
@@ -128,15 +129,13 @@ $f3->route('GET|POST /login', function($f3, $params) {
     echo $template->render('pages/navbar.html');
     echo $template->render('pages/signup.html');
 
-
-
     //if register button is clicked
     if (isset($_POST['register'])) {
+
         $username = $_POST['username'];
         $password = sha1($_POST['password']);
         $confirm = sha1($_POST['confirm']);
         $success = true;
-
 
         $user = new Member($username, $password, 0, 0);
 
@@ -145,21 +144,23 @@ $f3->route('GET|POST /login', function($f3, $params) {
             $database->addMember($username, $password, 0, 0);
             $_SESSION['user'] = $username;
             $f3->set('user', $_SESSION['user']);
+            $_SESSION["message"] = "";
             $f3->reroute("/");
         }
-        if($password != $confirm){
-            echo"Passwords do not match.";
-            echo $confirm;
-            echo $password;
 
+        if($password != $confirm){
+            $_SESSION["message"] = "Passwords do not match";
+            $f3->reroute("/login");
         }
         if(!$success) {
-            echo "Username already exists.";
+            $_SESSION["message"] = "Username already exists";
+            $f3->reroute("/login");
         }
     }
 
     //if login button is clicked
     if (isset($_POST['login'])) {
+
         $username = $_POST['username'];
         $password = sha1($_POST['password']);
         $success = true;
@@ -177,11 +178,13 @@ $f3->route('GET|POST /login', function($f3, $params) {
             $_SESSION['member'] = $user;
             $f3->set('user', $_SESSION['user']);
 
+            $_SESSION["message"] = "";
             $f3->reroute("/");
         }
 
         else {
-            echo "Incorrect username or password.";
+            $_SESSION["message"] = "Incorrect username or password";
+            $f3->reroute("/login");
         }
     }
 });

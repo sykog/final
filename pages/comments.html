@@ -99,11 +99,12 @@
 
             $("button#edit").click(function() {
                 // grabs content
-                var content = $(this).parent().parent().find("section p").html();
+                var content = $(this).parent().parent().parent().find("section p").html();
                 // inserts content into text area
                 $("#blogComment").html(content);
                 $("#blogComment").attr("name", "editComment");
                 $("#blogComment").attr("id", "editComment");
+                console.log(console);
             });//end click function
 
             // properly indent replies

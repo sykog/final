@@ -70,6 +70,7 @@ $f3->route('GET|POST /blog', function($f3, $params) {
             $title = $_POST['title'];
             if ($comment != "" || $title != "") {
                 $user->blogPost($title, $comment);
+                $f3->reroute("/328/final/blog/");
             }
         }
     }
@@ -106,10 +107,12 @@ $f3->route('GET|POST /blog/@postid', function($f3, $params) {
         if ($commentEdit != "") {
             // comment id - 1 wont change the indent
             $database->editComment($commentid - 1, $user->getUsername(), $commentEdit);
+            $f3->reroute("/blog/".$params['postid']);
         }
         if ($comment != "") {
             $user->comment($postid, $commentid, $comment);
             $database->updateCommentCount($postid, $post['commentCount'] + 1);
+            $f3->reroute("/blog/".$params['postid']);
         }
     }
 
